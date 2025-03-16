@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Health_Med.Business</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Health&amp;Med.Domain\HealthMed.Access.Domain.csproj" />
+    <ProjectReference Include="..\Health&amp;Med.Infrastructure\HealthMed.Access.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

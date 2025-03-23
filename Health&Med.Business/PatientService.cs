@@ -66,23 +66,23 @@ public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _c
         }
     }
 
-    public async Task<PagedResponse<IEnumerable<PatientResponse>>> GetAllAsync()
+    public async Task<PagedResponse<IEnumerable<PatientResponse>?>> GetAllAsync()
     {
 
         var patients = await _uow.PatientRepository.GetAllAsync();
         var result = _mapper.Map<IEnumerable<PatientResponse>>(patients);
         var count = result.Count();
 
-        return new PagedResponse<IEnumerable<PatientResponse>>(result, count);
+        return new PagedResponse<IEnumerable<PatientResponse>?>(result, count);
     }
 
-    public async Task<PagedResponse<IEnumerable<PatientResponse>>> GetByFilterAsync(SearchPatientRequest request)
+    public async Task<PagedResponse<IEnumerable<PatientResponse>?>> GetByFilterAsync(SearchPatientRequest request)
     {
         var patients = await _uow.PatientRepository.GetByFilterAsync(request);
         var result = _mapper.Map<IEnumerable<PatientResponse>>(patients);
         var count = result.Count();
 
-        return new PagedResponse<IEnumerable<PatientResponse>>(result, count);
+        return new PagedResponse<IEnumerable<PatientResponse>?>(result, count);
 
     }
 

@@ -14,4 +14,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\HealthMed.API.Access.Common.csproj" />
+    <ProjectReference Include="..\Health&amp;Med.Business\HealthMed.Access.Business.csproj" />
+    <ProjectReference Include="..\Health&amp;Med.Domain\HealthMed.Access.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

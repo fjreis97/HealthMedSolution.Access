@@ -17,7 +17,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Health_Med.Business;
 
-public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _coletorErrors) : IPatientService
+public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _coletorErrors, IPasswordGenerate _passwordGenerate, IPasswordGenerate _hash) : IPatientService
 {
     public async Task<Response<PatientResponse?>?> Create(PatientRequest request)
     {
@@ -26,6 +26,7 @@ public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _c
 
         try
         {
+            request.Password = _hash.GeneratePasswordHash(request.Password);
             long newCode = await _uow.PatientRepository.InsertAsync(_mapper.Map<PatientModel>(request));
 
             if (newCode == 0)
@@ -115,6 +116,18 @@ public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _c
 
         return new Response<PatientResponse?>(null, 200, "Patient Updated", null);
     }
+
+    public async Task<PatientResponse?> VerifyExistence(LoginRequest requestInitial)
+    {
+        var collaborator = (await GetAllAsync()).Data?.Where(x => x.EmailAddress.ToLower() == requestInitial.Input.ToLower()).First();
+
+        if (collaborator == null)
+            return null; 
+
+        collaborator = _passwordGenerate.ValidadePassword(requestInitial.Password, collaborator.Password) ? collaborator : null;
+        return _mapper.Map<PatientResponse>(collaborator);
+    }
+
     private async Task<bool> ValidatePatient(PatientRequest request)
     {
         var validatorPatient = await new PatientValidator().ValidateAsync(request);
@@ -129,5 +142,34 @@ public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _c
             return false;
         }
         return true;
+    }
+
+    public async Task<Response<PatientResponse?>?> DeleteSensitiveData(long id)
+    {
+        var searchData = await _uow.PatientRepository.GetByIdAsync(id);
+
+        if(searchData is null)
+        {
+            _coletorErrors.AddError("Patient not found");
+            return new Response<PatientResponse?>(null, 404, "Error deleting data", _coletorErrors.GenerateErrors());
+        }
+
+        var guid = Guid.NewGuid();
+
+        searchData.Cpf = string.Empty;
+        searchData.DateOfBirth = DateTime.Now;
+        searchData.Rg = string.Empty;
+        searchData.EmailAddress = $"lgpd{guid}@Health.com";
+        searchData.Name = $"lgpd{guid}";
+        searchData.Active = false;
+
+        var isUpdate = await _uow.PatientRepository.UpdateAsync(searchData);
+
+        if(!isUpdate)
+            return new Response<PatientResponse?>(null, 404, "Error deleting data", _coletorErrors.GenerateErrors());
+
+
+        return new Response<PatientResponse?>(null, 200, "data successfully deleted", _coletorErrors.GenerateErrors());
+
     }
 }

@@ -28,6 +28,8 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public IDoctorByServiceRepository DoctorByServiceRepository { get; }
 
     public IDoctorRepository DoctorRepository { get; }
+    public IServiceHoursRepository ServiceHoursRepository { get; }
+    public IMedicalScheduleRepository MedicalScheduleRepository { get; }
 
 
     public UnitOfWork(BdHealthMedSession sessaoBanco,
@@ -37,7 +39,9 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         IPatientRepository patientRepository,
         IDoctorByEspecialtyRepository doctorByEspecialtyRepository,
         IDoctorByServiceRepository doctorByServiceRepository,
-        IDoctorRepository doctorRepository)
+        IDoctorRepository doctorRepository,
+        IServiceHoursRepository serviceHoursRepository,
+        IMedicalScheduleRepository medicalScheduleRepository)
     {
         _sessaoBancoDados = sessaoBanco;
         CollaboratorRepository = collaboratorRepository;
@@ -47,20 +51,22 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         DoctorByEspecialtyRepository = doctorByEspecialtyRepository;
         DoctorByServiceRepository = doctorByServiceRepository;
         DoctorRepository = doctorRepository;
+        ServiceHoursRepository = serviceHoursRepository;
+        MedicalScheduleRepository = medicalScheduleRepository;
     }
 
     public void Begin()
     {
-        if(_sessaoBancoDados.Connection.State == ConnectionState.Closed)
+        if (_sessaoBancoDados.Connection.State == ConnectionState.Closed)
         {
-           _sessaoBancoDados.Connection.Open();
+            _sessaoBancoDados.Connection.Open();
         }
         _sessaoBancoDados.Transaction = _sessaoBancoDados.Connection.BeginTransaction();
     }
 
     public void Commit()
     {
-        try 
+        try
         {
             _sessaoBancoDados.Transaction.Commit();
             _sessaoBancoDados.Transaction.Dispose();
@@ -71,7 +77,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
             _sessaoBancoDados.Transaction.Rollback();
             _sessaoBancoDados.Transaction.Dispose();
         }
-        
+
     }
 
     public void Rollback()
@@ -82,7 +88,24 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 
     public void Dispose()
     {
-        throw new NotImplementedException();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+                // Liberar recursos gerenciados
+                _sessaoBancoDados.Connection.Dispose();
+                _sessaoBancoDados.Transaction?.Dispose();
+            }
+
+            // Liberar recursos não gerenciados, se houver
+
+            disposed = true;
+        }
+    }
 }

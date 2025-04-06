@@ -29,4 +29,9 @@ public static class PasswordUtils
     {
         return Regex.IsMatch(password, @"[\W_]");
     }
+
+    public static bool EqualsPasswords(string password, string confirmPassword)
+    {
+        return password.Equals(confirmPassword);
+    }
 }

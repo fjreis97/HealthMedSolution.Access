@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Business;
 
-public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _coletorErrors) : ICollaboratorService
+public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _coletorErrors, IDoctorService _doctorService, IPasswordGenerate _hash) : ICollaboratorService
 {
     public async Task<Response<CollaboratorResponse?>?> Create(CollaboratorRequest request)
     {
@@ -26,6 +26,7 @@ public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErro
 
         try
         {
+            request.Password = _hash.GeneratePasswordHash(request.Password);
             long newCode = await _uow.CollaboratorRepository.InsertAsync(_mapper.Map<CollaboratorModel>(request));
 
             if (newCode == 0)
@@ -34,7 +35,7 @@ public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErro
                 return new Response<CollaboratorResponse?>(null, 404, "Error Creating Collaborator", _coletorErrors.GenerateErrors());
             }
 
-            return new Response<CollaboratorResponse?>(null, 200, "Collaborator Created", null);
+            return new Response<CollaboratorResponse?>(null, 204, "Collaborator Created", null);
         }
         catch (Exception ex)
         {
@@ -110,6 +111,34 @@ public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErro
         }
 
         return new Response<CollaboratorResponse?>(null, 200, "Collaborator Updated", null);
+    }
+
+    public async Task<CollaboratorResponse?> VerifyExistence(LoginRequest requestInitial)
+    {
+        bool isEmail = requestInitial.Input.Contains("@"); 
+        CollaboratorModel? collaborator = null;
+        var listCollaborator = await _uow.CollaboratorRepository.GetAllAsync();
+
+        if (isEmail)
+        {        
+            collaborator = listCollaborator.FirstOrDefault(c => c.EmailAddress == requestInitial.Input);
+
+            if (collaborator == null)
+                return null;
+
+            collaborator = _hash.ValidadePassword(requestInitial.Password, collaborator.Password) ? collaborator : null;
+            return _mapper.Map<CollaboratorResponse>(collaborator);
+        }
+        
+        var searchCollaboratorDoctor = (await _doctorService.GetAllAsync()).Data?.Where(x => x.Crm.ToLower() == requestInitial.Input.ToLower());
+        collaborator = listCollaborator.Where(x => x.Id == searchCollaboratorDoctor?.First().Id).First();
+
+
+        if (collaborator == null)
+            return null;
+
+        collaborator = _hash.ValidadePassword(requestInitial.Password, collaborator.Password) ? collaborator : null;
+        return _mapper.Map<CollaboratorResponse>(collaborator);
     }
 
     private async Task<bool> ValidateCollaborator(CollaboratorRequest request)

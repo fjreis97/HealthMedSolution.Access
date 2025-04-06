@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Domain.Model;
 
-[Table("Registry.tbPatientModel")]
+[Table("Registration.tbPatient")]
 public class PatientModel
 {
     public long Id { get; set; }
@@ -16,9 +16,11 @@ public class PatientModel
     public DateTime DateOfBirth { get; set; }
     public string Cpf { get; set; } = string.Empty;
     public string Rg { get; set; } = string.Empty;
-    public string Address { get; set; } = string.Empty;
+    public string EmailAddress { get; set; } = string.Empty;
     public DateTime DateOfRegistration { get; set; } = DateTime.Now;
     public string Password { get; set; } = string.Empty;
+    [Write(false)]
+    public string ConfirmPassword { get; set; } = string.Empty;
     public bool Active { get; set; } = true;
     public int RoleId { get; set; } = (int)Role.Patient;
 }

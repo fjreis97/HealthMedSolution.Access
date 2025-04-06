@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Domain.Model;
 
-[Table("Registry.tbDoctorByServiceModel")]
+[Table("Registration.tbDoctorByService")]
 public class DoctorByServiceModel
 {
     public long IdDoctor { get; set; }

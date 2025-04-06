@@ -25,13 +25,6 @@ public class DoctorByServiceService(IUnitOfWork _uow, IMapper _mapper, IColetorE
         try
         {
             long newCode = await _uow.DoctorByServiceRepository.InsertAsync(_mapper.Map<DoctorByServiceModel>(request));
-
-            if (newCode == 0)
-            {
-                _coletorErrors.AddError("Error Creating DoctorByService");
-                return new Response<DoctorByServiceResponse?>(null, 404, "Error Creating DoctorByService", _coletorErrors.GenerateErrors());
-            }
-
             return new Response<DoctorByServiceResponse?>(null, 200, "DoctorByService Created", null);
         }
         catch (Exception ex)

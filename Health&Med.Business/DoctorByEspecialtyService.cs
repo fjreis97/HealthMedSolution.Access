@@ -25,13 +25,6 @@ public class DoctorByEspecialtyService(IUnitOfWork _uow, IMapper _mapper, IColet
         try
         {
             long newCode = await _uow.DoctorByEspecialtyRepository.InsertAsync(_mapper.Map<DoctorByEspecialtyModel>(request));
-
-            if (newCode == 0)
-            {
-                _coletorErrors.AddError("Error Creating DoctorByEspecialty");
-                return new Response<DoctorByEspecialtyResponse?>(null, 404, "Error Creating DoctorByEspecialty", _coletorErrors.GenerateErrors());
-            }
-
             return new Response<DoctorByEspecialtyResponse?>(null, 200, "DoctorByEspecialty Created", null);
         }
         catch (Exception ex)

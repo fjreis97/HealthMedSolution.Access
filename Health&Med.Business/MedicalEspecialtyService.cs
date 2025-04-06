@@ -67,6 +67,11 @@ public class MedicalEspecialtyService(IUnitOfWork _uow, IMapper _mapper, IColeto
     {
         var MedicalEspecialtys = await _uow.MedicalEspecialtyRepository.GetAllAsync();
         var result = _mapper.Map<IEnumerable<MedicalEspecialtyResponse>>(MedicalEspecialtys);
+
+        foreach(var item in result)
+        {
+            item.MedicalServices = _mapper.Map<IEnumerable<MedicalServiceResponse>>((await _uow.MedicalServiceRepository.GetAllAsync()).Where(x => x.IdMedicalEspecialty == item.Id).ToList());
+        }
         var count = result.Count();
 
         return new PagedResponse<IEnumerable<MedicalEspecialtyResponse>?>(result, count);

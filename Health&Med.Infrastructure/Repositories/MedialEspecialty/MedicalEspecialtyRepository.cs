@@ -14,6 +14,6 @@ namespace Health_Med.Infrastructure.Repositories.MedialEspecialty;
 
 public class MedicalEspecialtyRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<MedicalEspecialtyModel, SearchMedicalEspecialtyRequest>(_sessaoBanco), IMedicalEspecialtyRepository
 {
-    public override string SqlByFilter => "SELECT * FROM tbMedicalEspecialty WHERE 1 = 1";
+    public override string SqlByFilter => "SELECT * FROM Registration.tbMedicalEspecialty WHERE 1 = 1";
 }
 

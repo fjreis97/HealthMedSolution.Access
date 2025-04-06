@@ -14,6 +14,6 @@ namespace Health_Med.Infrastructure.Repositories.MedicalService;
 
 public class MedicalServiceRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<MedicalServiceModel, SearchMedicalServiceRequest>(_sessaoBanco), IMedicalServiceRepository
 {
-    public override string SqlByFilter => "SELECT * FROM tbMedicalService WHERE 1 = 1";
+    public override string SqlByFilter => "SELECT * FROM Registration.tbMedicalService WHERE 1 = 1";
 }
 

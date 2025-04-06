@@ -10,6 +10,12 @@ namespace HealthMed.API.Access.Common.ColetorErrors;
 public class ColetorErrors : IColetorErrors
 {
     private List<string> Errors { get; set;}
+
+    public ColetorErrors()
+    {
+        Errors = new List<string>();
+    }
+
     public bool hasError => Errors.Any();
 
     public void AddError(string error)

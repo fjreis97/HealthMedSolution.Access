@@ -14,5 +14,5 @@ namespace Health_Med.Infrastructure.Repositories.Patient;
 
 public class PatientRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<PatientModel, SearchPatientRequest>(_sessaoBanco), IPatientRepository
 {
-    public override string SqlByFilter => "SELECT * FROM tbPatient WHERE 1 = 1";
+    public override string SqlByFilter => "SELECT * FROM Registration.tbPatient WHERE 1 = 1";
 }

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Domain.Model;
 
-[Table("Registry.tbDoctorModel")]
-public class DoctorModel : CollaboratorModel
+[Table("Registration.tbDoctor")]
+public class DoctorModel
 {
+    public long Id { get; set; }
     public string Crm { get; set; }
-    public string Rqe { get; set; }
+    public string? Rqe { get; set; }
+    public long IdCollaborator { get; set; }
 }

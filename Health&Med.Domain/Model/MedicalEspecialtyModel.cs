@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Domain.Model;
 
-[Table("Registry.tbMedicalEspecialtyModel")]
+[Table("Registration.tbMedicalEspecialty")]
 public class MedicalEspecialtyModel
 {
     public long Id { get; set; }

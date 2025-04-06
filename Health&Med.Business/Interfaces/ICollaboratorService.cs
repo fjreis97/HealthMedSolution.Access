@@ -12,4 +12,5 @@ namespace Health_Med.Business.Interfaces;
 
 public interface ICollaboratorService: IBaseService<Response<CollaboratorResponse?>,PagedResponse<IEnumerable<CollaboratorResponse>?>,SearchCollaboratorRequest,CollaboratorRequest>
 {
+    public Task<CollaboratorResponse?> VerifyExistence(LoginRequest requestInitial);
 }

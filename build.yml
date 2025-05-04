@@ -1,0 +1,38 @@
+name: Build, Test and Publish HealthMedSolution.Access
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v3
+
+    - name: Instalar SDK do .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restaurar dependências
+      run: dotnet restore HealthMedSolution.Access.sln
+
+    - name: Build da solução
+      run: dotnet build HealthMedSolution.Access.sln --configuration Release --no-restore
+
+    - name: Executar testes
+      run: dotnet test HealthMed.Access.Test/HealthMed.Access.Test.csproj --configuration Release --no-build --verbosity normal
+
+    - name: Publicar API
+      run: dotnet publish HealthMed.Access.API/HealthMed.Access.API.csproj -c Release -o ./publish
+
+    - name: Salvar artefatos publicados
+      uses: actions/upload-artifact@v3
+      with:
+        name: healthmed-api
+        path: ./publish

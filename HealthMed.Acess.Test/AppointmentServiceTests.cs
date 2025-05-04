@@ -39,7 +39,7 @@ public class AppointmentServiceTests
     }
 
     //TODO AJUSTAR
-    [Fact]
+    //[Fact]
     //public async Task Create_ShouldCreateAppointment_WhenValidRequest()
     //{
     //    Arrange

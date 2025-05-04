@@ -5,7 +5,7 @@ using HealthMed.API.Access.Common.ResponseDefault;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Health_Med.API.Controllers;
-
+//teste
 [ApiController]
 [Route("api/[controller]")]
 public class AppointmentController(IAppointmentService _AppointmentService) : Controller

@@ -12,4 +12,6 @@ namespace Health_Med.Business.Interfaces;
 
 public interface IPatientService : IBaseService<Response<PatientResponse?>, PagedResponse<IEnumerable<PatientResponse>?>, SearchPatientRequest, PatientRequest>
 {
+    public Task<PatientResponse?> VerifyExistence(LoginRequest requestInitial);
+    public Task<Response<PatientResponse?>?> DeleteSensitiveData(long id);
 }

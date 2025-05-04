@@ -17,7 +17,7 @@ public class MedicalServiceValidator : AbstractValidator<MedicalServiceModel>
             .NotEmpty().WithMessage("Name is required")
             .MaximumLength(150).WithMessage("Name can't be longer than 150 characters");
 
-        RuleFor(x => x.IdEspecialty)
+        RuleFor(x => x.IdMedicalEspecialty)
             .NotEmpty().WithMessage("Especialty is required");
     }
 }

@@ -9,4 +9,5 @@ namespace Health_Med.Domain.Dtos.Request;
 
 public class MedicalEspecialtyRequest :MedicalEspecialtyModel   
 {
+
 }

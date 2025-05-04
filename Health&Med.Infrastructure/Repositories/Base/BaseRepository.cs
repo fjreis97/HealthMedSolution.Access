@@ -19,7 +19,7 @@ public abstract class BaseRepository<TModel, TSearchRequest>(BdHealthMedSession 
     public abstract string SqlByFilter { get; }
     public async Task<IEnumerable<TModel>> GetAllAsync() => await _sessaoBanco.Connection.GetAllAsync<TModel>();
     public async Task<IEnumerable<TModel>> GetByFilterAsync(TSearchRequest request) => await _sessaoBanco.Connection.QueryAsync<TModel>(SqlByFilter, request, _sessaoBanco.Transaction);
-    public async Task<TModel> GetByIdAsync(long id) => await _sessaoBanco.Connection.GetAsync<TModel>(id);
+    public async Task<TModel> GetByIdAsync(long id) => await _sessaoBanco.Connection.GetAsync<TModel>(id, _sessaoBanco.Transaction);
     public async Task<long> InsertAsync(TModel model) => await _sessaoBanco.Connection.InsertAsync(model, _sessaoBanco.Transaction);
     public async Task<bool> UpdateAsync(TModel model) => await _sessaoBanco.Connection.UpdateAsync(model, _sessaoBanco.Transaction);
     public async Task<bool> DisableAsync(TModel model) => await _sessaoBanco.Connection.UpdateAsync(model, _sessaoBanco.Transaction);  // delete lógico, apenas alterando o active para false

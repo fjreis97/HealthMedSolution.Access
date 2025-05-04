@@ -14,5 +14,9 @@ namespace Health_Med.Infrastructure.Repositories.Collaborator;
 
 public class CollaboratorRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<CollaboratorModel, SearchCollaboratorRequest>(_sessaoBanco), ICollaboratorRepository
 {
-    public override string SqlByFilter => "SELECT * FROM tbCollaborator WHERE 1 = 1";
+    public override string SqlByFilter => $@"SELECT * FROM Registration.tbCollaborator WHERE 1 = 1
+ORDER BY Id
+OFFSET @ResultsToIgnore ROWS
+FETCH NEXT @resultsByPage ROWS ONLY; ";
+
 }

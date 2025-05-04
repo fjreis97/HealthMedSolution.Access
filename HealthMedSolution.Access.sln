@@ -13,6 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Business",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.API.Access.Common", "Common\HealthMed.API.Access.Common.csproj", "{540B47BE-BA45-4EA8-B5CD-E913FD3473A7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Acess.Test", "HealthMed.Acess.Test\HealthMed.Acess.Test.csproj", "{9C5B03BE-3CB8-45EA-8E03-72A3183D510C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F4965882-311C-459B-A444-F6DDBE42836F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E5FBB802-B4BF-4C37-95C8-144243EAD123}"
+	ProjectSection(SolutionItems) = preProject
+		build.yml = build.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +48,16 @@ Global
 		{540B47BE-BA45-4EA8-B5CD-E913FD3473A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{540B47BE-BA45-4EA8-B5CD-E913FD3473A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{540B47BE-BA45-4EA8-B5CD-E913FD3473A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C5B03BE-3CB8-45EA-8E03-72A3183D510C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5B03BE-3CB8-45EA-8E03-72A3183D510C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5B03BE-3CB8-45EA-8E03-72A3183D510C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5B03BE-3CB8-45EA-8E03-72A3183D510C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5FBB802-B4BF-4C37-95C8-144243EAD123} = {F4965882-311C-459B-A444-F6DDBE42836F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8840A549-3717-4A81-B114-FC43933A2E46}

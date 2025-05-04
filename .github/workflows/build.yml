@@ -30,9 +30,3 @@ jobs:
 
     - name: Publicar API
       run: dotnet publish HealthMed.Access.API/HealthMed.Access.API.csproj -c Release -o ./publish
-
-    - name: Salvar artefatos publicados
-      uses: actions/upload-artifact@v3
-      with:
-        name: healthmed-api
-        path: ./publish

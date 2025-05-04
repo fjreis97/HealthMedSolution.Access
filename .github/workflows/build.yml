@@ -26,7 +26,7 @@ jobs:
       run: dotnet build HealthMedSolution.Access.sln --configuration Release --no-restore
 
     - name: Executar testes
-      run: dotnet test HealthMed.Acess.Test/HealthMed.Access.Test.csproj --configuration Release --no-build --verbosity normal
+      run: dotnet test HealthMed.Acess.Test/HealthMed.Acess.Test.csproj --configuration Release --no-build --verbosity normal
 
     - name: Publicar API
       run: dotnet publish HealthMed.Access.API/HealthMed.Access.API.csproj -c Release -o ./publish

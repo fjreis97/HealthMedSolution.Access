@@ -30,7 +30,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
 
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborato")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> GetById(long id)
       => await _service.GetById(id);
 
@@ -41,6 +41,6 @@ public class DoctorController(IDoctorService _service) : ControllerBase
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorResponse>?>>> GetByFilter([FromBody] SearchDoctorRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorResponse>?>>> GetByFilter([FromQuery] SearchDoctorRequest request)
         => await _service.GetByFilterAsync(request);
 }

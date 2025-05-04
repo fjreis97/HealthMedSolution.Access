@@ -30,6 +30,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public IDoctorRepository DoctorRepository { get; }
     public IServiceHoursRepository ServiceHoursRepository { get; }
     public IMedicalScheduleRepository MedicalScheduleRepository { get; }
+    public IAppointmentRepository AppointmentRepository { get; }
 
 
     public UnitOfWork(BdHealthMedSession sessaoBanco,
@@ -41,7 +42,8 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         IDoctorByServiceRepository doctorByServiceRepository,
         IDoctorRepository doctorRepository,
         IServiceHoursRepository serviceHoursRepository,
-        IMedicalScheduleRepository medicalScheduleRepository)
+        IMedicalScheduleRepository medicalScheduleRepository,
+        IAppointmentRepository appointmentRepository)
     {
         _sessaoBancoDados = sessaoBanco;
         CollaboratorRepository = collaboratorRepository;
@@ -53,6 +55,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         DoctorRepository = doctorRepository;
         ServiceHoursRepository = serviceHoursRepository;
         MedicalScheduleRepository = medicalScheduleRepository;
+        AppointmentRepository = appointmentRepository;
     }
 
     public void Begin()

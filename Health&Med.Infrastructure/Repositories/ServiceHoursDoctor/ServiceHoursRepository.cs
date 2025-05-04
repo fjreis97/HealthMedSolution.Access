@@ -13,5 +13,8 @@ namespace Health_Med.Infrastructure.Repositories.ServiceHoursDoctor;
 
 public class ServiceHoursRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<ServiceHoursModel, SearchServiceHoursRequest>(_sessaoBanco), IServiceHoursRepository
 {
-    public override string SqlByFilter => "SELECT * FROM Registration.ServiceHours WHERE 1 = 1";
+    public override string SqlByFilter => $@"SELECT * FROM Registration.ServiceHours WHERE 1 = 1
+ORDER BY Id
+OFFSET @ResultsToIgnore ROWS
+FETCH NEXT @resultsByPage ROWS ONLY; ";
 }

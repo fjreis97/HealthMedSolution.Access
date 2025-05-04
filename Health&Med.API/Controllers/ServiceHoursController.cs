@@ -40,6 +40,6 @@ public class ServiceHoursController(IServiceHoursService _service) : ControllerB
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<ServiceHoursResponse>?>>> GetByFilter([FromBody] SearchServiceHoursRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<ServiceHoursResponse>?>>> GetByFilter([FromQuery] SearchServiceHoursRequest request)
         => await _service.GetByFilterAsync(request);
 }

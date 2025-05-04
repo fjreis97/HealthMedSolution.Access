@@ -2,6 +2,7 @@
 using Health_Med.Business.Interfaces;
 using Health_Med.Domain.Mappings;
 using Health_Med.Infrastructure.DAL;
+using Health_Med.Infrastructure.Repositories.Appointment;
 using Health_Med.Infrastructure.Repositories.Collaborator;
 using Health_Med.Infrastructure.Repositories.Doctor;
 using Health_Med.Infrastructure.Repositories.DoctorByEspecialty;
@@ -32,13 +33,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddScoped<BdHealthMedSession>(provider => new BdHealthMedSession(connectionString));
 
 //Automapper
-builder.Services.AddAutoMapper(typeof(CollaboratorProfile));
-builder.Services.AddAutoMapper(typeof(MedicalServiceProfile));
-builder.Services.AddAutoMapper(typeof(MedicalEspecialtyProfile));
-builder.Services.AddAutoMapper(typeof(DoctorProfile));
-builder.Services.AddAutoMapper(typeof(PatientProfile));
-builder.Services.AddAutoMapper(typeof(DoctorByServiceProfile));
-builder.Services.AddAutoMapper(typeof(DoctorByEspecialtyProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //add service to the coletor errors
 builder.Services.AddScoped<IColetorErrors, ColetorErrors>();
@@ -54,6 +49,7 @@ builder.Services.AddScoped<IDoctorByServiceRepository, DoctorByServiceRepository
 builder.Services.AddScoped<IDoctorByEspecialtyRepository, DoctorByEspecialtyRepository>();
 builder.Services.AddScoped<IServiceHoursRepository, ServiceHoursRepository>();
 builder.Services.AddScoped<IMedicalScheduleRepository, MedicalScheduleRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 //add service to the unit of work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -69,7 +65,7 @@ builder.Services.AddScoped<IDoctorByEspecialtyService, DoctorByEspecialtyService
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IServiceHoursService, ServiceHoursService>();
 builder.Services.AddScoped<IMedicalScheduleService, MedicalScheduleService>();
-
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["SecretJWT"]!);
 

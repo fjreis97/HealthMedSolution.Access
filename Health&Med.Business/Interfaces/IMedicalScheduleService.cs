@@ -11,5 +11,8 @@ namespace Health_Med.Business.Interfaces;
 
 public interface IMedicalScheduleService : IBaseService<Response<MedicalScheduleResponse?>, PagedResponse<IEnumerable<MedicalScheduleResponse>?>, SearchMedicalScheduleRequest, MedicalScheduleRequest>
 {
-    public Task<Response<IEnumerable<MedicalScheduleRequest?>?>> GenerateMedicalSchedule(int daysAhead = 30);
+    Task<Response<bool>> UpdateStatusSchedule(MedicalScheduleUpdateStatusRequest request);
+    Task<Response<IEnumerable<MedicalScheduleRequest?>?>> GenerateMedicalSchedule(GenerateHoursRequest request);
+    Task<Response<bool>> ConfirmedSchedule(long id);
+    Task<Response<bool>> RejectedSchedule(long id);
 }

@@ -18,4 +18,5 @@ public class MedicalScheduleModel
     public TimeSpan EndTime { get; set; }
     public string Status { get; set; } = "Available";
     public int? AppointmentId { get; set; }
+    public string? MotiveCancellation { get; set; }
 }

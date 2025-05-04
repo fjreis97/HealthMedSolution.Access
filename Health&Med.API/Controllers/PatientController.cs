@@ -46,6 +46,6 @@ public class PatientController(IPatientService _service) : ControllerBase
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Patient")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<PatientResponse>?>>> GetByFilter([FromBody] SearchPatientRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<PatientResponse>?>>> GetByFilter([FromQuery] SearchPatientRequest request)
         => await _service.GetByFilterAsync(request);
 }

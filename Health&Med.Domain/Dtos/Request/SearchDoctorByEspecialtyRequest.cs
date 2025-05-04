@@ -9,4 +9,6 @@ namespace Health_Med.Domain.Dtos.Request;
 
 public class SearchDoctorByEspecialtyRequest :PagedRequest
 {
+    public long? IdDoctor { get; set; }
+    public long? IdEspecialty { get; set; }
 }

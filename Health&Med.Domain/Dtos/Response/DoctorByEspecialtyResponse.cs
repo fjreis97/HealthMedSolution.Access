@@ -9,4 +9,6 @@ namespace Health_Med.Domain.Dtos.Response;
 
 public class DoctorByEspecialtyResponse : DoctorByEspecialtyModel
 {
+    public InformationDoctorForPatientResponse? doctor { get; set; }
+    public string especialty { get; set; }
 }

@@ -41,6 +41,6 @@ public class DoctorByServiceController(IDoctorByServiceService _service) : Contr
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Doctor")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorByServiceResponse>?>>> GetByFilter([FromBody] SearchDoctorByServiceRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorByServiceResponse>?>>> GetByFilter([FromQuery] SearchDoctorByServiceRequest request)
         => await _service.GetByFilterAsync(request);
 }

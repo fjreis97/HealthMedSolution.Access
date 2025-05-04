@@ -14,5 +14,12 @@ namespace Health_Med.Infrastructure.Repositories.DoctorByEspecialty;
 
 public class DoctorByEspecialtyRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<DoctorByEspecialtyModel, SearchDoctorByEspecialtyRequest>(_sessaoBanco), IDoctorByEspecialtyRepository
 {
-    public override string SqlByFilter => "SELECT * FROM Registration.tbDoctorEspecialty WHERE 1 = 1";
+    public override string SqlByFilter => $@"SELECT * FROM Registration.tbDoctorByEspecialty WHERE 1 = 1
+{sqlWhereFilter}
+order by IdDoctor
+OFFSET @ResultsToIgnore ROWS
+FETCH NEXT @resultsByPage ROWS ONLY; ";
+
+    private const string sqlWhereFilter = @" AND (@IdDoctor IS NULL OR IdDoctor = @IdDoctor)
+                                             AND (@IdEspecialty IS NULL OR IdEspecialty = @IdEspecialty)";
 }

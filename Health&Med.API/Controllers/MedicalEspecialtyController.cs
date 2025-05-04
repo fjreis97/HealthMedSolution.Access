@@ -41,6 +41,6 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<MedicalEspecialtyResponse>?>>> GetByFilter([FromBody] SearchMedicalEspecialtyRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<MedicalEspecialtyResponse>?>>> GetByFilter([FromQuery] SearchMedicalEspecialtyRequest request)
         => await _service.GetByFilterAsync(request);
 }

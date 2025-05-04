@@ -119,7 +119,13 @@ public class PatientService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _c
 
     public async Task<PatientResponse?> VerifyExistence(LoginRequest requestInitial)
     {
-        var collaborator = (await GetAllAsync()).Data?.Where(x => x.EmailAddress.ToLower() == requestInitial.Input.ToLower()).First();
+        PatientResponse? collaborator;
+
+        if(requestInitial.Input.All(char.IsNumber))
+            collaborator = (await GetAllAsync()).Data?.Where(x => x.Cpf == requestInitial.Input).FirstOrDefault();
+
+        else
+            collaborator = (await GetAllAsync()).Data?.Where(x => x.EmailAddress.ToLower() == requestInitial.Input.ToLower()).First();
 
         if (collaborator == null)
             return null; 

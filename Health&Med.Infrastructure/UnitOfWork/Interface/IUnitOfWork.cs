@@ -19,6 +19,7 @@ public interface IUnitOfWork :IDisposable
     IDoctorRepository DoctorRepository { get; }
     IServiceHoursRepository ServiceHoursRepository { get; }
     IMedicalScheduleRepository MedicalScheduleRepository { get; }
+    IAppointmentRepository AppointmentRepository { get; }
 
 
     void Begin();

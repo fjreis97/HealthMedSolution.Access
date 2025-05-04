@@ -42,6 +42,6 @@ public class CollaboratorController(ICollaboratorService _collaboratorService) :
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<CollaboratorResponse>?>>> GetByFilter([FromBody] SearchCollaboratorRequest request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<CollaboratorResponse>?>>> GetByFilter([FromQuery] SearchCollaboratorRequest request)
         => await _collaboratorService.GetByFilterAsync(request);
 }

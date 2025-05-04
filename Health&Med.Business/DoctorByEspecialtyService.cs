@@ -69,6 +69,23 @@ public class DoctorByEspecialtyService(IUnitOfWork _uow, IMapper _mapper, IColet
     {
         var DoctorByEspecialtys = await _uow.DoctorByEspecialtyRepository.GetByFilterAsync(request);
         var result = _mapper.Map<IEnumerable<DoctorByEspecialtyResponse>>(DoctorByEspecialtys);
+        var ListDoctor = await _uow.DoctorRepository.GetAllAsync();
+        var listCollaborator = await _uow.CollaboratorRepository.GetAllAsync();
+        var listEspecialty = await _uow.MedicalEspecialtyRepository.GetAllAsync();
+
+        foreach(var item in result)
+        {
+            var doctor = ListDoctor.FirstOrDefault(x => x.Id == item.IdDoctor)!;
+            var collaborator = listCollaborator.FirstOrDefault(x => x.Id == doctor.IdCollaborator);
+            item.especialty = (listEspecialty.FirstOrDefault(x => x.Id == item.IdEspecialty)!).Name;
+            item.doctor = new InformationDoctorForPatientResponse()
+            {
+                Crm = doctor.Crm,
+                Name = collaborator.Name,
+                Rqe = doctor.Rqe
+            };
+        }
+
         var count = result.Count();
 
         return new PagedResponse<IEnumerable<DoctorByEspecialtyResponse>?>(result, count);

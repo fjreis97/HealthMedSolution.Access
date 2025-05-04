@@ -29,17 +29,17 @@ public class DoctorByEspecialtyController(IDoctorByEspecialtyService _service) :
 
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor,Patient")]
     public async Task<ActionResult<Response<DoctorByEspecialtyResponse?>?>> GetById(long id)
       => await _service.GetById(id);
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor,Patient")]
     public async Task<ActionResult<PagedResponse<IEnumerable<DoctorByEspecialtyResponse>?>>> GetAll()
         => await _service.GetAllAsync();
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor")]
-    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorByEspecialtyResponse>?>>> GetByFilter([FromBody] SearchDoctorByEspecialtyRequest request)
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Doctor,Patient")]
+    public async Task<ActionResult<PagedResponse<IEnumerable<DoctorByEspecialtyResponse>?>>> GetByFilter([FromQuery] SearchDoctorByEspecialtyRequest request)
         => await _service.GetByFilterAsync(request);
 }

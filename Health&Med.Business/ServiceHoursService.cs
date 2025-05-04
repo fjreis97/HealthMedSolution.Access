@@ -3,6 +3,7 @@ using Health_Med.Business.Interfaces;
 using Health_Med.Business.Validators;
 using Health_Med.Domain.Dtos.Request;
 using Health_Med.Domain.Dtos.Response;
+using Health_Med.Domain.Enums;
 using Health_Med.Domain.Model;
 using Health_Med.Infrastructure.UnitOfWork.Interface;
 using HealthMed.API.Access.Common.ColetorErrors.Interfaces;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Health_Med.Business;
 
-//todo: Implementar todos os métodos
+//Horarios de atendimento
 
 
 public class ServiceHoursService(IUnitOfWork _uow, IMapper _mapper, IColetorErrors _coletorErrors, IDoctorService _doctorService, IPasswordGenerate _hash) : IServiceHoursService
@@ -128,6 +129,7 @@ public class ServiceHoursService(IUnitOfWork _uow, IMapper _mapper, IColetorErro
         return new Response<ServiceHoursResponse?>(null, 200, "Service Hours Updated", null);
     }
 
+   
 
     private async Task<bool> Validate(ServiceHoursRequest request)
     {

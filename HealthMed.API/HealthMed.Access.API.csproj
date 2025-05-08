@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\HealthMed.API.Access.Common.csproj" />
-    <ProjectReference Include="..\Health&amp;Med.Business\HealthMed.Access.Business.csproj" />
-    <ProjectReference Include="..\Health&amp;Med.Domain\HealthMed.Access.Domain.csproj" />
+    <ProjectReference Include="..\HealthMed.Business\HealthMed.Access.Business.csproj" />
+    <ProjectReference Include="..\HealthMed.Domain\HealthMed.Access.Domain.csproj" />
   </ItemGroup>
 
 </Project>

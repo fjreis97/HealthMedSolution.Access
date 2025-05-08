@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Health&amp;Med.Business\HealthMed.Access.Business.csproj" />
-    <ProjectReference Include="..\Health&amp;Med.Infrastructure\HealthMed.Access.Infrastructure.csproj" />
+    <ProjectReference Include="..\HealthMed.Business\HealthMed.Access.Business.csproj" />
+    <ProjectReference Include="..\HealthMed.Infrastructure\HealthMed.Access.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

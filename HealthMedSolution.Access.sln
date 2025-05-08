@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.API", "Health&Med.API\HealthMed.Access.API.csproj", "{5010349F-B783-4416-8746-3DD2C33FD2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.API", "HealthMed.API\HealthMed.Access.API.csproj", "{5010349F-B783-4416-8746-3DD2C33FD2D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Infrastructure", "Health&Med.Infrastructure\HealthMed.Access.Infrastructure.csproj", "{EBC67A1A-E707-441A-ACAD-D02C4DC31992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Infrastructure", "HealthMed.Infrastructure\HealthMed.Access.Infrastructure.csproj", "{EBC67A1A-E707-441A-ACAD-D02C4DC31992}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Domain", "Health&Med.Domain\HealthMed.Access.Domain.csproj", "{3224466E-5954-4B16-A50B-E21DE54AAAC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Domain", "HealthMed.Domain\HealthMed.Access.Domain.csproj", "{3224466E-5954-4B16-A50B-E21DE54AAAC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Business", "Health&Med.Business\HealthMed.Access.Business.csproj", "{961B1F5A-3424-44D5-938A-9F0B8D36C02A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Access.Business", "HealthMed.Business\HealthMed.Access.Business.csproj", "{961B1F5A-3424-44D5-938A-9F0B8D36C02A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.API.Access.Common", "Common\HealthMed.API.Access.Common.csproj", "{540B47BE-BA45-4EA8-B5CD-E913FD3473A7}"
 EndProject

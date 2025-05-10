@@ -24,7 +24,7 @@ jobs:
 
     - name: Build e Publish
       run: |
-        dotnet restore HealthMed.API.sln
+        dotnet restore HealthMedSolution.Access.sln
         dotnet publish HealthMed.API/HealthMed.Access.API.csproj -c Release -o ./publish
 
     - name: Login no Docker Hub

@@ -13,7 +13,7 @@ namespace Health_Med.API.Controllers;
 public class DoctorController(IDoctorService _service) : ControllerBase
 {
     [HttpPost("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> Create([FromBody] DoctorRequest request)
     {
         var resp = await _service.Create(request);
@@ -25,7 +25,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
     }
 
     [HttpPut("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> Put([FromBody] DoctorRequest request)
     {
         var resp = await _service.Update(request);
@@ -37,7 +37,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
     }
 
     [HttpDelete("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> Delete(long id)
     {
         var resp = await _service.Delete(id);
@@ -49,7 +49,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
     }
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> GetById(long id)
     {
         var resp = await _service.GetById(id);
@@ -61,7 +61,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
     }
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<PagedResponse<IEnumerable<DoctorResponse>?>>> GetAll()
     {
         var resp = await _service.GetAllAsync();
@@ -73,7 +73,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
     }
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<PagedResponse<IEnumerable<DoctorResponse>?>>> GetByFilter([FromQuery] SearchDoctorRequest request)
     {
         var resp = await _service.GetByFilterAsync(request);

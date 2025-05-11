@@ -13,7 +13,7 @@ namespace Health_Med.API.Controllers;
 public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : ControllerBase
 {
     [HttpPost("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<MedicalEspecialtyResponse?>?>> Create([FromBody] MedicalEspecialtyRequest request)
     {
         var resp = await _service.Create(request);
@@ -25,7 +25,7 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
     }
 
     [HttpPut("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<MedicalEspecialtyResponse?>?>> Put([FromBody] MedicalEspecialtyRequest request)
     {
         var resp = await _service.Update(request);
@@ -37,7 +37,7 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
     }
 
     [HttpDelete("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<MedicalEspecialtyResponse?>?>> Delete(long id)
     {
         var resp = await _service.Delete(id);
@@ -49,7 +49,7 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
     }
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<Response<MedicalEspecialtyResponse?>?>> GetById(long id)
     {
         var resp = await _service.GetById(id);
@@ -61,7 +61,7 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
     }
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<PagedResponse<IEnumerable<MedicalEspecialtyResponse>?>>> GetAll()
     {
         var resp = await _service.GetAllAsync();
@@ -73,7 +73,7 @@ public class MedicalEspecialtyController(IMedicalEspecialtyService _service) : C
     }
 
     [HttpGet("[action]")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator, Doctor")]
     public async Task<ActionResult<PagedResponse<IEnumerable<MedicalEspecialtyResponse>?>>> GetByFilter([FromQuery] SearchMedicalEspecialtyRequest request)
     {
         var resp = await _service.GetByFilterAsync(request);

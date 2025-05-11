@@ -10,6 +10,7 @@ namespace HealthMed.API.Access.Common.ResponseDefault;
 public class Response<TData>
 {
     private readonly int _code;
+    public int Code => _code;
     private const int DefaultStatusCode = 200;
 
     [JsonConstructor]

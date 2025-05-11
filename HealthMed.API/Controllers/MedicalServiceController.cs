@@ -15,32 +15,72 @@ public class MedicalServiceController(IMedicalServiceService _service) : Control
     [HttpPost("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<MedicalServiceResponse?>?>> Create([FromBody] MedicalServiceRequest request)
-       => await _service.Create(request);
+    {
+        var resp = await _service.Create(request);
+
+        if (resp!.IsSuccess)
+            return Created();
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpPut("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<MedicalServiceResponse?>?>> Put([FromBody] MedicalServiceRequest request)
-       => await _service.Update(request);
+    {
+        var resp = await _service.Update(request);
 
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpDelete("[action]/{id}")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<MedicalServiceResponse?>?>> Delete(long id)
-       => await _service.Delete(id);
+    {
+        var resp = await _service.Delete(id);
 
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]/{id}")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<MedicalServiceResponse?>?>> GetById(long id)
-      => await _service.GetById(id);
+    {
+        var resp = await _service.GetById(id);
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<PagedResponse<IEnumerable<MedicalServiceResponse>?>>> GetAll()
-        => await _service.GetAllAsync();
+    {
+        var resp = await _service.GetAllAsync();
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<PagedResponse<IEnumerable<MedicalServiceResponse>?>>> GetByFilter([FromQuery] SearchMedicalServiceRequest request)
-        => await _service.GetByFilterAsync(request);
+    {
+        var resp = await _service.GetByFilterAsync(request);
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 }

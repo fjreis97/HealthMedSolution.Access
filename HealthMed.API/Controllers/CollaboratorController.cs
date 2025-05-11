@@ -14,34 +14,74 @@ public class CollaboratorController(ICollaboratorService _collaboratorService) :
 {
     [HttpPost("[action]")]
     [AllowAnonymous]
-    //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<CollaboratorResponse?>?>> Create([FromBody] CollaboratorRequest request)
-        => await _collaboratorService.Create(request);
+    {
+        var resp = await _collaboratorService.Create(request);
+
+        if (resp!.IsSuccess)
+            return Created();
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpPut("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<CollaboratorResponse?>?>> Put([FromBody] CollaboratorRequest request)
-       => await _collaboratorService.Update(request);
+    {
+        var resp = await _collaboratorService.Update(request);
 
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpDelete("[action]/{id}")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<CollaboratorResponse?>?>> Delete(long id)
-       => await _collaboratorService.Delete(id);
+    {
+        var resp = await _collaboratorService.Delete(id);
 
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]/{id}")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<CollaboratorResponse?>?>> GetById(long id)
-      => await _collaboratorService.GetById(id);
+    {
+        var resp = await _collaboratorService.GetById(id);
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<PagedResponse<IEnumerable<CollaboratorResponse>?>>> GetAll()
-        => await _collaboratorService.GetAllAsync();
+    {
+        var resp = await _collaboratorService.GetAllAsync();
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<PagedResponse<IEnumerable<CollaboratorResponse>?>>> GetByFilter([FromQuery] SearchCollaboratorRequest request)
-        => await _collaboratorService.GetByFilterAsync(request);
+    {
+        var resp = await _collaboratorService.GetByFilterAsync(request);
+
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 }

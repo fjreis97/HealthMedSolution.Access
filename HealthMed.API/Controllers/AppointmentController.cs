@@ -14,31 +14,79 @@ public class AppointmentController(IAppointmentService _AppointmentService) : Co
 {
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<AppointmentResponse?>?>> Create([FromBody] AppointmentRequest request)
-       => await _AppointmentService.Create(request);
+    {
+        var resp = await _AppointmentService.Create(request);
+
+        if(resp!.IsSuccess)
+            return Created();
+
+        return StatusCode(resp.Code, resp);
+    }
+
 
     [HttpPut("[action]")]
     public async Task<ActionResult<Response<AppointmentResponse?>?>> Put([FromBody] AppointmentRequest request)
-       => await _AppointmentService.Update(request);
+    {
+        var resp = await _AppointmentService.Update(request);
 
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp); 
+    }
 
     [HttpDelete("[action]/{id}")]
     public async Task<ActionResult<Response<AppointmentResponse?>?>> Delete(long id)
-       => await _AppointmentService.Delete(id);
+    {
+        var resp =  await _AppointmentService.Delete(id);
 
+        if (resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]/{id}")]
     public async Task<ActionResult<Response<AppointmentResponse?>?>> GetById(long id)
-      => await _AppointmentService.GetById(id);
+    {
+        var resp =  await _AppointmentService.GetById(id);
+
+        if(resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     public async Task<ActionResult<PagedResponse<IEnumerable<AppointmentResponse>?>>> GetAll()
-        => await _AppointmentService.GetAllAsync();
+    {
+        var resp =  await _AppointmentService.GetAllAsync();
+
+        if(resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpGet("[action]")]
     public async Task<ActionResult<PagedResponse<IEnumerable<AppointmentResponse>?>>> GetByFilter([FromQuery] SearchAppointmentRequest request)
-        => await _AppointmentService.GetByFilterAsync(request);
+    {
+        var resp = await _AppointmentService.GetByFilterAsync(request);
+
+        if(resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 
     [HttpPut("[action]/{id}")]
     public async Task<ActionResult<Response<AppointmentResponse?>?>> CanceledAppointment(long id)
-       => await _AppointmentService.CancelAppointment(id);
+    {
+        var resp = await _AppointmentService.CancelAppointment(id);
+
+        if(resp.IsSuccess)
+            return Ok(resp);
+
+        return StatusCode(resp.Code, resp);
+    }
 }

@@ -2,12 +2,14 @@
 using Health_Med.Domain.Dtos.Request;
 using Health_Med.Domain.Dtos.Response;
 using HealthMed.API.Access.Common.ResponseDefault;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Health_Med.API.Controllers;
 //teste
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator,Patient")]
 public class AppointmentController(IAppointmentService _AppointmentService) : Controller
 {
     [HttpPost("[action]")]
@@ -35,4 +37,8 @@ public class AppointmentController(IAppointmentService _AppointmentService) : Co
     [HttpGet("[action]")]
     public async Task<ActionResult<PagedResponse<IEnumerable<AppointmentResponse>?>>> GetByFilter([FromQuery] SearchAppointmentRequest request)
         => await _AppointmentService.GetByFilterAsync(request);
+
+    [HttpPut("[action]/{id}")]
+    public async Task<ActionResult<Response<AppointmentResponse?>?>> CanceledAppointment(long id)
+       => await _AppointmentService.CancelAppointment(id);
 }

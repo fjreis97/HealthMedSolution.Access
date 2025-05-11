@@ -43,7 +43,6 @@ public class AppointmentService(IUnitOfWork _uow, IMapper _mapper, IColetorError
 
     private async Task<bool> IncludeAppointment(MedicalScheduleRequest request, long AppointmentId)
     {
-
         try
         {
 
@@ -139,6 +138,7 @@ public class AppointmentService(IUnitOfWork _uow, IMapper _mapper, IColetorError
     {
         var Appointments = await _uow.AppointmentRepository.GetByFilterAsync(request);
         var result = _mapper.Map<IEnumerable<AppointmentResponse>>(Appointments);
+        result = result.Where(x => x.RequestedDate >= DateTime.Now);
         var count = result.Count();
 
         return new PagedResponse<IEnumerable<AppointmentResponse>?>(result, count);
@@ -155,6 +155,53 @@ public class AppointmentService(IUnitOfWork _uow, IMapper _mapper, IColetorError
         }
 
         return new Response<AppointmentResponse?>(_mapper.Map<AppointmentResponse>(Appointment), 200, "Appointment Found", null);
+    }
+
+
+    public async Task<Response<AppointmentResponse?>?> CancelAppointment(long id)
+    {
+        var Appointment = await _uow.AppointmentRepository.GetByIdAsync(id);
+
+        if (Appointment == null)
+        {
+            _coletorErrors.AddError("Appointment not found");
+            return new Response<AppointmentResponse?>(null, 404, "Appointment not found", _coletorErrors.GenerateErrors());
+        }
+
+        try
+        {
+            var schedule = (await _uow.MedicalScheduleRepository.GetByFilterAsync(new SearchMedicalScheduleRequest { AppointmentId = Convert.ToInt32(id)})).FirstOrDefault();
+
+            if (schedule == null)
+            {
+                _coletorErrors.AddError("Schedule not found");
+                return new Response<AppointmentResponse?>(null, 404, "Schedule not found", _coletorErrors.GenerateErrors());
+            }
+
+            Appointment.Status = (int)EStatus.Canceled;
+            schedule.Status = EStatusSchedule.Available.ToString();
+
+            _uow.Begin();
+
+            bool IsUpdated = await _uow.AppointmentRepository.UpdateAsync(Appointment);
+            bool isSchedule = await _uow.MedicalScheduleRepository.UpdateAsync(schedule);
+
+            if (!IsUpdated && !isSchedule)
+            {
+                _uow.Rollback();
+                _coletorErrors.AddError("Error updated Appointment or updated schedule");
+                return new Response<AppointmentResponse?>(null, 404, "Error Update Appointment", _coletorErrors.GenerateErrors());               
+            }
+
+            _uow.Commit();
+            return new Response<AppointmentResponse?>(null, 200, "Appointment Canceled", null);
+        }
+        catch (Exception ex)
+        {
+            _uow.Rollback();
+            _coletorErrors.AddError("Error Deleting Appointment");
+            return new Response<AppointmentResponse?>(null, 404, "Error Cancel Appointment", _coletorErrors.GenerateErrors());
+        }
     }
 
 

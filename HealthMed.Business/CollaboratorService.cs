@@ -131,7 +131,7 @@ public class CollaboratorService(IUnitOfWork _uow, IMapper _mapper, IColetorErro
         }
         
         var searchCollaboratorDoctor = (await _doctorService.GetAllAsync()).Data?.Where(x => x.Crm.ToLower() == requestInitial.Input.ToLower());
-        collaborator = listCollaborator.Where(x => x.Id == searchCollaboratorDoctor?.First().Id).First();
+        collaborator = listCollaborator.Where(x => x.Id == searchCollaboratorDoctor?.First().IdCollaborator).First();
 
 
         if (collaborator == null)

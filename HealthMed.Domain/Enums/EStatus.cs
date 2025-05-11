@@ -11,6 +11,7 @@ public enum EStatus
     Pending = 1,
     Confirmed = 2,
     Rejected = 3,
-    Realized = 4
+    Realized = 4,
+    Canceled = 5
 }
 

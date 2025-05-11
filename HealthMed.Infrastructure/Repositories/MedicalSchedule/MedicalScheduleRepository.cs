@@ -13,7 +13,7 @@ namespace Health_Med.Infrastructure.Repositories.MedicalSchedule;
 
 public class MedicalScheduleRepository(BdHealthMedSession _sessaoBanco) : BaseRepository<MedicalScheduleModel, SearchMedicalScheduleRequest>(_sessaoBanco), IMedicalScheduleRepository
 {
-    public override string SqlByFilter => $@"SELECT * FROM Registration.MedicalSchedule WHERE 1 = 1
+    public override string SqlByFilter => $@"SELECT * FROM Registration.MedicalSchedule WHERE 1 = 1 AND Date >= GETDATE()
 {sqlWhereFilter}
 ORDER BY Date, StartTime
 OFFSET @ResultsToIgnore ROWS

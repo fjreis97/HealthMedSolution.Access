@@ -46,6 +46,7 @@ public class MedicalScheduleService(IUnitOfWork _uow, IMapper _mapper, IColetorE
         _uow.Begin();
         var schedule = await _uow.MedicalScheduleRepository.GetByIdAsync(id);
         schedule.Status = "Available";
+        schedule.AppointmentId = null;
 
         var scheduleResponse = await _uow.MedicalScheduleRepository.UpdateAsync(schedule);
 

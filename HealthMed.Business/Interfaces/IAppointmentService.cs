@@ -13,4 +13,5 @@ public interface IAppointmentService : IBaseService<Response<AppointmentResponse
 {
     Task<bool> ApprovedAppointment(long id);
     Task<bool> RejectedAppointment(long id);
+    Task<Response<AppointmentResponse?>?> CancelAppointment(long id);
 }

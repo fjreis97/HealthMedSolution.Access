@@ -1,4 +1,5 @@
-﻿using HealthMed.API.Access.Common.RequestDefault;
+﻿using Health_Med.Domain.Enums;
+using HealthMed.API.Access.Common.RequestDefault;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,4 +10,6 @@ namespace Health_Med.Domain.Dtos.Request;
 
 public class SearchAppointmentRequest : PagedRequest
 {
+    public long PatientId { get; set; }
+    public int Status { get; set; } 
 }

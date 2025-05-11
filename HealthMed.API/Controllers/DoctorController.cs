@@ -30,7 +30,7 @@ public class DoctorController(IDoctorService _service) : ControllerBase
 
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborato")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Collaborator")]
     public async Task<ActionResult<Response<DoctorResponse?>?>> GetById(long id)
       => await _service.GetById(id);
 

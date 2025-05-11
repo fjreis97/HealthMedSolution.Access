@@ -45,13 +45,14 @@ public class MedicalScheduleService(IUnitOfWork _uow, IMapper _mapper, IColetorE
     {
         _uow.Begin();
         var schedule = await _uow.MedicalScheduleRepository.GetByIdAsync(id);
+        var appointmentId = schedule.AppointmentId;
         schedule.Status = "Available";
         schedule.AppointmentId = null;
-
+       
         var scheduleResponse = await _uow.MedicalScheduleRepository.UpdateAsync(schedule);
 
         //libera a marcação
-        var approvedAppointment = await _appointmentService.RejectedAppointment((long)schedule.AppointmentId!);
+        var approvedAppointment = await _appointmentService.RejectedAppointment((long)appointmentId!);
 
         if (scheduleResponse && approvedAppointment)
         {

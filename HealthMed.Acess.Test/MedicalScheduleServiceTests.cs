@@ -72,13 +72,13 @@ public class MedicalScheduleServiceTests
     public async Task RejectedSchedule_ShouldRejectSchedule_WhenValidId()
     {
         // Arrange
-        var schedule = new MedicalScheduleModel { Id = 1, Status = "Busy", AppointmentId = 1 };
-        _mockUnitOfWork.Setup(u => u.MedicalScheduleRepository.GetByIdAsync(1)).ReturnsAsync(schedule);
+        var schedule = new MedicalScheduleModel { Id = 27, Status = "Busy", AppointmentId = 2 };
+        _mockUnitOfWork.Setup(u => u.MedicalScheduleRepository.GetByIdAsync(27)).ReturnsAsync(schedule);
         _mockUnitOfWork.Setup(u => u.MedicalScheduleRepository.UpdateAsync(schedule)).ReturnsAsync(true);
-        _mockAppointmentService.Setup(a => a.RejectedAppointment(1)).ReturnsAsync(true);
+        _mockAppointmentService.Setup(a => a.RejectedAppointment(2)).ReturnsAsync(true);
 
         // Act
-        var result = await _service.RejectedSchedule(1);
+        var result = await _service.RejectedSchedule(27);
 
         // Assert
         Assert.NotNull(result);
